@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "volcano-long-run"
-version = "0.1.0"
+version = "0.1.1"
 description = "Long (centuries) simulation of 50+ volcanic eruptions"
 authors = ["engeir <engeir@pm.me>"]
 license = "MIT"
