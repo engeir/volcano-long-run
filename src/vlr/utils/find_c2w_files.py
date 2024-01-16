@@ -70,12 +70,13 @@ class FindFiles:
 
     >>> matches = ff.find("strong", ("ens2", "ens4"))
     >>> # [print(m) for m in matches.get_files().unwrap()]
+    >>> # matches.print_files()
     >>> # print(len(matches))
 
     Remove ens1 and ens5 (none of them are present, but that's fine)
 
     >>> matches = matches.remove("ens1", "ens5")
-    >>> # [print(m) for m in matches.get_files().unwrap()]
+    >>> # matches.print_files()
     >>> # print(len(matches))
 
     Keep h0, e_BWma1850 or e_fSST1850, FLNT or TREFHT or AODVISstdn and ens1 or ens2.
@@ -86,7 +87,7 @@ class FindFiles:
     ...    ["FLNT", "TREFHT", "AODVISstdn"],
     ...    {"ens1", "ens2"},
     ... )
-    >>> # [print(m) for m in matches.get_files().unwrap()]
+    >>> # matches.print_files()
     >>> # print(len(matches))
 
     Load the files into xarray objects
@@ -209,12 +210,34 @@ class FindFiles:
             [print(f"\t\t\t{i}") for i in s]
 
     def get_files(self) -> Result[list[tuple[str, str, str, str, str, str]], str]:
-        """Return the list of matched files."""
+        """Return the list of matched files.
+
+        Returns
+        -------
+        Result[list[tuple[str, str, str, str, str, str]], str]
+            A result type that is a Success or a Failure. Match against it to safely
+            obtain the correct output (also see the `print_files()` method)::
+
+                match get_files():
+                    case Success(value):
+                        [print(v) for v in value]
+                    case Failure(value):
+                        print(value)
+        """
         return (
             Success(self._matched_files)
             if self._matched_files is not None
             else Failure("There are no matched files to return.")
         )
+
+    def print_files(self) -> None:
+        """Print all found files if any have been found."""
+        match self.get_files():
+            case Success(value):
+                for i in value:
+                    print(i)
+            case Failure(value):
+                print(value)
 
     @overload
     def sort(self, *attributes: str, arrays: list[T_Xarray]) -> list[T_Xarray]:
