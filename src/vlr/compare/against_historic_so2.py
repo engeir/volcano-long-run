@@ -19,7 +19,7 @@ def _get_so2_ob16_full_timeseries() -> tuple[np.ndarray, np.ndarray]:
         Arrays containing time and value of SO2 peaks
     """
     file = "IVI2LoadingLatHeight501-2000_L18_c20100518.nc"
-    if not (fn := vlr.config.DATA_PATH / file).exists():
+    if not (fn := vlr.config.DATA_PATH / "cesm-lme" / file).exists():
         print(f"Cannot find {fn.resolve()}")
         vlr.download.historic_so2.save_historical_so2(fn)
     ds = xr.open_dataset(vlr.config.DATA_PATH / file)
