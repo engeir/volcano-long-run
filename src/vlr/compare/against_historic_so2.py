@@ -22,7 +22,7 @@ def _get_so2_ob16_full_timeseries() -> tuple[np.ndarray, np.ndarray]:
     if not (fn := vlr.config.DATA_PATH / "cesm-lme" / file).exists():
         print(f"Cannot find {fn.resolve()}")
         vlr.download.historic_so2.save_historical_so2(fn)
-    ds = xr.open_dataset(vlr.config.DATA_PATH / file)
+    ds = xr.open_dataset(fn)
     year = ds.time.data
     avgs_list = vlr.utils.time_series.mean_flatten([ds.colmass], dims=["lat"])
     avgs = avgs_list[0].data
