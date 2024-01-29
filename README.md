@@ -1,6 +1,6 @@
 # Long run simulation of volcanic eruptions
 
-<sup>Latest version: v0.1.1</sup> <!-- x-release-please-version -->
+<sup>Latest version: v0.2.0</sup> <!-- x-release-please-version -->
 
 > [!WARNING]
 >
@@ -39,7 +39,7 @@ running
 
 ```console
 $ poetry run vlr
-Hello, this is vlr at version v0.1.1!
+Hello, this is vlr at version v0.2.0!
 ```
 
 <!-- x-release-please-end -->
